@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Clustering Teks{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">K-Means</p>
+  <h1>Visualisasi clustering teks</h1>
+</section>
+
+<section class="card controls">
+  <label for="cluster-count">Jumlah cluster</label>
+  <select id="cluster-count"><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option></select>
+  <button id="load-clusters" type="button">Tampilkan</button>
+</section>
+
+<section class="grid two-columns">
+  <article class="card chart-card"><h2>Peta cluster</h2><div id="cluster-chart" class="plot-box"></div></article>
+  <article class="card"><h2>Evaluasi cluster</h2><div class="score"><strong id="silhouette-score">-</strong><span>Silhouette score</span></div><div id="cluster-summary" class="cluster-summary"></div></article>
+</section>
+
+<p id="clustering-error" class="error" hidden></p>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/clustering.js') }}"></script>{% endblock %}

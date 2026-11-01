@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Visualisasi Data{% endblock %}</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <a class="brand" href="{{ url_for('dashboard') }}">Visualisasi Data</a>
+      <p class="subtitle">Visualisasi Prediksi Nilai Emas dan Klustering Teks Rupiah Menggunakan Flask</p>
+    </div>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('prediction_page') }}">Prediksi Emas</a>
+      <a href="{{ url_for('clustering_page') }}">Clustering</a>
+    </nav>
+  </header>
+  <main class="container">{% block content %}{% endblock %}</main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

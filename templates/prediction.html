@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Prediksi Nilai Emas{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Linear Regression</p>
+  <h1>Prediksi nilai emas</h1>
+</section>
+
+<section class="grid two-columns">
+  <article class="card">
+    <h2>Pilih periode</h2>
+    <form id="prediction-form">
+      <label>Tahun</label>
+      <div id="year-options" class="year-options" role="group" aria-label="Pilih tahun"></div>
+      <label for="month-slider">Bulan</label>
+      <input id="month-slider" class="month-slider" type="range" min="1" max="12" value="8" step="1" aria-label="Pilih bulan">
+      <div class="month-slider-labels" aria-hidden="true"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Mei</span><span>Jun</span><span>Jul</span><span>Agu</span><span>Sep</span><span>Okt</span><span>Nov</span><span>Des</span></div>
+      <div class="selected-month"><strong id="selected-month-name">Agustus</strong><span id="selected-month-number">Bulan ke-8</span></div>
+      <p id="selected-period" class="selected-period"></p>
+      <button type="submit">Hitung prediksi</button>
+    </form>
+    <p id="prediction-error" class="error" hidden></p>
+  </article>
+  <article class="card result-card">
+    <span class="eyebrow">HASIL PREDIKSI</span>
+    <span class="result-label">Harga per troy ounce</span>
+    <strong id="prediction-result">-</strong>
+    <span class="result-label">Harga per gram</span>
+    <strong id="gram-result">-</strong>
+    <p id="prediction-period">Pilih periode untuk melihat hasil.</p>
+  </article>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>{% endblock %}
