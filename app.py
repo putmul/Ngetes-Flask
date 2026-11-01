@@ -13,6 +13,7 @@ from sklearn.metrics import silhouette_score
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "model" / "linear_regression_emas.pkl"
 PREDICTED_DATA_PATH = BASE_DIR / "data" / "rupiah_predicted.csv"
+GOLD_HISTORY_PATH = BASE_DIR / "data" / "gold-monthly-processed.csv"
 START_YEAR = 2022
 MIN_PREDICTION_YEAR = 2026
 MAX_PREDICTION_YEAR = 2030
@@ -27,6 +28,22 @@ model = load_model()
 data = pd.read_csv(PREDICTED_DATA_PATH)
 data["full_text"] = data["full_text"].fillna("").astype(str)
 data["sentiment"] = data["sentiment"].fillna("unknown").astype(str).str.lower()
+
+gold_history_data = pd.read_csv(GOLD_HISTORY_PATH)
+gold_history_data["Date"] = pd.to_datetime(
+    gold_history_data["Date"], errors="coerce"
+)
+gold_history_data = gold_history_data[
+    gold_history_data['Date'].dt.year >= 2000
+]
+gold_history_data["Price"] = pd.to_numeric(
+    gold_history_data["Price"], errors="coerce"
+)
+gold_history_data = (
+    gold_history_data.dropna(subset=["Date", "Price"])
+    .sort_values("Date")
+    .reset_index(drop=True)
+)
 
 STOPWORDS_ID = {
     "yang", "dan", "di", "ke", "dari", "ini", "itu", "untuk", "dengan",
@@ -114,6 +131,14 @@ def filtered_points(cluster_result, sentiment):
 
 @app.route("/")
 def dashboard(): return render_template("dashboard.html")
+
+
+@app.get("/api/gold-history")
+def gold_history():
+    return jsonify(
+        dates=gold_history_data["Date"].dt.strftime("%Y-%m-%d").tolist(),
+        prices=gold_history_data["Price"].round(2).tolist(),
+    )
 
 
 @app.post("/api/predict")

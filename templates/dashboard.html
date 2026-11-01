@@ -6,6 +6,20 @@
   <h1>Prediksi Emas dan Klustering</h1>
 </section>
 
+<section id="gold-history" class="dashboard-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">DATA HISTORIS</p>
+      <h2>Tren kenaikan harga emas</h2>
+    </div>
+    <p>Pergerakan harga emas bulanan berdasarkan data historis.</p>
+  </div>
+  <article class="card chart-card">
+    <div id="gold-chart" class="line-chart-box"></div>
+    <p id="gold-chart-error" class="error" hidden></p>
+  </article>
+</section>
+
 <section id="prediction" class="dashboard-section">
   <div class="section-heading">
     <div>
@@ -64,6 +78,7 @@
 </section>
 {% endblock %}
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/gold-chart.js') }}"></script>
 <script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
 <script src="{{ url_for('static', filename='js/clustering.js') }}"></script>
 {% endblock %}

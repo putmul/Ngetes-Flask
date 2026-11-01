@@ -130,6 +130,10 @@ h2 {
   height: 520px;
 }
 
+.line-chart-box {
+  height: 420px;
+}
+
 label {
   display: block;
   margin: 0 0 6px;
@@ -352,6 +356,10 @@ form button {
 
   .plot-box {
     height: 420px;
+  }
+
+  .line-chart-box {
+    height: 360px;
   }
 
   .section-heading {
