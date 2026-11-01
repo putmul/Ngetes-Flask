@@ -1,26 +1,69 @@
 {% extends "base.html" %}
-{% block title %}Dashboard Data{% endblock %}
+{% block title %}Dashboard Prediksi dan Clustering{% endblock %}
 {% block content %}
 <section class="hero">
-  <h1>Dashboard data rupiah</h1>
-  <p>Ringkasan data hasil crawling twitter terkait "rupiah".</p>
+  <p class="eyebrow">VISUALISASI DATA</p>
+  <h1>Prediksi Emas dan Klustering</h1>
 </section>
 
-<section class="stats">
-  <article class="card stat"><span>Total data</span><strong id="total-records">-</strong></article>
-  <article class="card stat"><span>Positif</span><strong id="positive-count">-</strong></article>
-  <article class="card stat"><span>Negatif</span><strong id="negative-count">-</strong></article>
-  <article class="card stat"><span>Netral</span><strong id="neutral-count">-</strong></article>
+<section id="prediction" class="dashboard-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">LINEAR REGRESSION</p>
+      <h2>Prediksi nilai emas</h2>
+    </div>
+    <p>Data training tersedia dari 2022 sampai Agustus 2026.</p>
+  </div>
+
+  <div class="grid two-columns">
+    <article class="card">
+      <h2>Pilih periode</h2>
+      <form id="prediction-form">
+        <label>Tahun</label>
+        <div id="year-options" class="year-options" role="group" aria-label="Pilih tahun"></div>
+        <label for="month-slider">Bulan</label>
+        <input id="month-slider" class="month-slider" type="range" min="1" max="12" value="8" step="1" aria-label="Pilih bulan">
+        <div class="month-slider-labels" aria-hidden="true"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Mei</span><span>Jun</span><span>Jul</span><span>Agu</span><span>Sep</span><span>Okt</span><span>Nov</span><span>Des</span></div>
+        <div class="selected-month"><strong id="selected-month-name">Agustus</strong><span id="selected-month-number">Bulan ke-8</span></div>
+        <p id="selected-period" class="selected-period"></p>
+        <button type="submit">Hitung prediksi</button>
+      </form>
+      <p id="prediction-error" class="error" hidden></p>
+    </article>
+    <article class="card result-card">
+      <span class="eyebrow">HASIL PREDIKSI</span>
+      <span class="result-label">Harga per troy ounce</span>
+      <strong id="prediction-result">-</strong>
+      <span class="result-label">Harga per gram</span>
+      <strong id="gram-result">-</strong>
+      <p id="prediction-period">Pilih periode untuk melihat hasil.</p>
+    </article>
+  </div>
 </section>
 
-<section class="grid two-columns">
-  <article class="card chart-card"><h2>Distribusi sentimen</h2><div class="chart-box"><canvas id="sentiment-chart"></canvas></div></article>
-  <article class="card"><h2>Statistik teks</h2><dl class="details">
-    <div><dt>Rata-rata karakter</dt><dd id="average-length">-</dd></div>
-    <div><dt>Rata-rata kata</dt><dd id="average-words">-</dd></div>
-    <div><dt>Teks duplikat</dt><dd id="duplicate-texts">-</dd></div>
-  </dl></article>
+<section id="clustering" class="dashboard-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">K-MEANS</p>
+      <h2>Visualisasi clustering teks</h2>
+    </div>
+    <p>TF-IDF dan K-Means mengelompokkan berita berdasarkan pola kata yang serupa.</p>
+  </div>
+
+  <section class="card controls">
+    <label for="cluster-count">Jumlah cluster</label>
+    <select id="cluster-count"><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option></select>
+    <button id="load-clusters" type="button">Tampilkan</button>
+  </section>
+
+  <section class="grid two-columns">
+    <article class="card chart-card"><h2>Peta cluster</h2><div id="cluster-chart" class="plot-box"></div></article>
+    <article class="card"><h2>Evaluasi cluster</h2><div class="score"><strong id="silhouette-score">-</strong><span>Silhouette score</span></div><div id="cluster-summary" class="cluster-summary"></div></article>
+  </section>
+  <p id="clustering-error" class="error" hidden></p>
 </section>
-<p id="dashboard-error" class="error" hidden></p>
 {% endblock %}
-{% block scripts %}<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+<script src="{{ url_for('static', filename='js/clustering.js') }}"></script>
+{% endblock %}

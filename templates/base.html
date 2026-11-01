@@ -11,14 +11,9 @@
 <body>
   <header class="header">
     <div>
-      <a class="brand" href="{{ url_for('dashboard') }}">Visualisasi Data</a>
-      <p class="subtitle">Visualisasi Prediksi Nilai Emas dan Klustering Teks Rupiah Menggunakan Flask</p>
+      <a class="brand" href="{{ url_for('dashboard') }}">DataLab Modul 6</a>
+      <p class="subtitle">Dashboard prediksi emas dan clustering teks</p>
     </div>
-    <nav>
-      <a href="{{ url_for('dashboard') }}">Dashboard</a>
-      <a href="{{ url_for('prediction_page') }}">Prediksi Emas</a>
-      <a href="{{ url_for('clustering_page') }}">Clustering</a>
-    </nav>
   </header>
   <main class="container">{% block content %}{% endblock %}</main>
   {% block scripts %}{% endblock %}

@@ -7,7 +7,7 @@ import re
 import joblib
 import numpy as np
 import pandas as pd
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, redirect, render_template, request
 from sklearn.cluster import KMeans
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -15,9 +15,9 @@ from sklearn.metrics import silhouette_score
 
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "linear_regression_emas.pkl"
-CLEAN_DATA_PATH = BASE_DIR / "rupiah_clean.csv"
-PREDICTED_DATA_PATH = BASE_DIR / "rupiah_predicted.csv"
+MODEL_PATH = BASE_DIR / "model/linear_regression_emas.pkl"
+CLEAN_DATA_PATH = BASE_DIR / "data/rupiah_clean.csv"
+PREDICTED_DATA_PATH = BASE_DIR / "data/rupiah_predicted.csv"
 START_YEAR = 2022
 MIN_PREDICTION_YEAR = 2026
 MAX_PREDICTION_YEAR = 2030
@@ -129,12 +129,12 @@ def dashboard():
 
 @app.route("/prediction")
 def prediction_page():
-    return render_template("prediction.html")
+    return redirect("/#prediction")
 
 
 @app.route("/clustering")
 def clustering_page():
-    return render_template("clustering.html")
+    return redirect("/#clustering")
 
 
 @app.get("/api/summary")
